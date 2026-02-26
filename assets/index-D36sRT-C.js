@@ -7057,16 +7057,19 @@ var Action;
   Action2["Replace"] = "REPLACE";
 })(Action || (Action = {}));
 const PopStateEventType = "popstate";
-function createBrowserHistory(options) {
+function createHashHistory(options) {
   if (options === void 0) {
     options = {};
   }
-  function createBrowserLocation(window2, globalHistory) {
+  function createHashLocation(window2, globalHistory) {
     let {
-      pathname,
-      search,
-      hash
-    } = window2.location;
+      pathname = "/",
+      search = "",
+      hash = ""
+    } = parsePath(window2.location.hash.substr(1));
+    if (!pathname.startsWith("/") && !pathname.startsWith(".")) {
+      pathname = "/" + pathname;
+    }
     return createLocation(
       "",
       {
@@ -7079,10 +7082,20 @@ function createBrowserHistory(options) {
       globalHistory.state && globalHistory.state.key || "default"
     );
   }
-  function createBrowserHref(window2, to) {
-    return typeof to === "string" ? to : createPath(to);
+  function createHashHref(window2, to) {
+    let base = window2.document.querySelector("base");
+    let href = "";
+    if (base && base.getAttribute("href")) {
+      let url = window2.location.href;
+      let hashIndex = url.indexOf("#");
+      href = hashIndex === -1 ? url : url.slice(0, hashIndex);
+    }
+    return href + "#" + (typeof to === "string" ? to : createPath(to));
   }
-  return getUrlBasedHistory(createBrowserLocation, createBrowserHref, null, options);
+  function validateHashLocation(location, to) {
+    warning(location.pathname.charAt(0) === "/", "relative pathnames are not supported in hash history.push(" + JSON.stringify(to) + ")");
+  }
+  return getUrlBasedHistory(createHashLocation, createHashHref, validateHashLocation, options);
 }
 function invariant(value2, message2) {
   if (value2 === false || value2 === null || typeof value2 === "undefined") {
@@ -7195,6 +7208,7 @@ function getUrlBasedHistory(getLocation, createHref, validateLocation, options) 
   function push(to, state) {
     action2 = Action.Push;
     let location = createLocation(history.location, to, state);
+    if (validateLocation) validateLocation(location, to);
     index = getIndex() + 1;
     let historyState = getHistoryState(location, index);
     let url = history.createHref(location);
@@ -7217,6 +7231,7 @@ function getUrlBasedHistory(getLocation, createHref, validateLocation, options) 
   function replace(to, state) {
     action2 = Action.Replace;
     let location = createLocation(history.location, to, state);
+    if (validateLocation) validateLocation(location, to);
     index = getIndex();
     let historyState = getHistoryState(location, index);
     let url = history.createHref(location);
@@ -8308,16 +8323,16 @@ const ViewTransitionContext = /* @__PURE__ */ reactExports.createContext({
 });
 const START_TRANSITION = "startTransition";
 const startTransitionImpl = React$1[START_TRANSITION];
-function BrowserRouter(_ref4) {
+function HashRouter(_ref5) {
   let {
     basename,
     children,
     future,
     window: window2
-  } = _ref4;
+  } = _ref5;
   let historyRef = reactExports.useRef();
   if (historyRef.current == null) {
-    historyRef.current = createBrowserHistory({
+    historyRef.current = createHashHistory({
       window: window2,
       v5Compat: true
     });
@@ -22986,6 +23001,10 @@ const getShortPagination = (currentPage, totalPages) => {
 function getCount(ids) {
   return ids.reduce((total, cur) => cur.count + total, 0);
 }
+function getAssetPath(path) {
+  const normalized = path.startsWith("/") ? path.slice(1) : path;
+  return `${"/react_phone-catalog/"}${normalized}`;
+}
 function reducer(state, action2) {
   switch (action2.type) {
     case "START_LOADING": {
@@ -23266,8 +23285,8 @@ const AppSettingsProvider = ({
   return /* @__PURE__ */ jsxRuntimeExports.jsx(AppSettingsContext.Provider, { value: value2, children });
 };
 const iconToPath = {
-  heart: "/img/general/icons/heart.svg",
-  cart: "/img/general/icons/cart.svg"
+  heart: getAssetPath("img/general/icons/heart.svg"),
+  cart: getAssetPath("img/general/icons/cart.svg")
 };
 const HeaderIconButton = ({
   count: count2,
@@ -23329,7 +23348,6 @@ const styles$q = {
   icon: icon$2,
   iconLight
 };
-const logo$3 = "/react_phone-catalog/img/general/icons/Logo.svg";
 const logo$2 = "_logo_1cjqh_1";
 const logoImage$2 = "_logoImage_1cjqh_6";
 const logoImageLight$2 = "_logoImageLight_1cjqh_10";
@@ -23340,11 +23358,11 @@ const styles$p = {
 };
 const Logo = () => {
   const { theme } = reactExports.useContext(AppSettingsContext);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "https://github.com/Radymyr", className: styles$p.logo, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: routes.home, className: styles$p.logo, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
     "img",
     {
       className: theme === "light" ? styles$p.logoImageLight : styles$p.logoImage,
-      src: logo$3,
+      src: getAssetPath("img/general/icons/Logo.svg"),
       alt: "logo"
     }
   ) });
@@ -23450,7 +23468,7 @@ const Menu = ({ onClose }) => {
         {
           className: `${styles$n.logoImage} ${theme === "light" ? styles$n.logoImageLight : ""}`,
           alt: "logo",
-          src: "/img/general/icons/Logo.svg"
+          src: getAssetPath("img/general/icons/Logo.svg")
         }
       ) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("button", { className: styles$n.button, onClick: onClose, type: "button", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -23458,7 +23476,7 @@ const Menu = ({ onClose }) => {
         {
           className: `${styles$n.closeIcon} ${theme === "light" ? styles$n.closeIconLight : ""}`,
           alt: "close",
-          src: "/img/general/icons/close.svg"
+          src: getAssetPath("img/general/icons/close.svg")
         }
       ) })
     ] }),
@@ -23627,7 +23645,7 @@ const Header = () => {
                 {
                   className: `${styles$q.icon} ${theme === "light" ? styles$q.iconLight : ""}`,
                   alt: "menu",
-                  src: "/img/general/icons/menu.svg"
+                  src: getAssetPath("img/general/icons/menu.svg")
                 }
               )
             }
@@ -23674,7 +23692,7 @@ const Footer = () => {
           theme === "light" && styles$l.logoImageLight
         ),
         alt: "logo",
-        src: "/img/general/icons/logo-bottom.svg"
+        src: getAssetPath("img/general/icons/logo-bottom.svg")
       }
     ) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("nav", { className: styles$l.navigation, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("ul", { className: styles$l.list, children: [
@@ -23710,7 +23728,7 @@ const Footer = () => {
         {
           className: styles$l.icon,
           alt: "up-arrow",
-          src: theme === "light" ? "/img/general/icons/arrow.svg" : "/img/general/icons/arrow-white.svg"
+          src: theme === "light" ? getAssetPath("img/general/icons/arrow.svg") : getAssetPath("img/general/icons/arrow-white.svg")
         }
       ) })
     ] })
@@ -29335,8 +29353,8 @@ const SliderButtons = ({
 }) => {
   const { theme } = React.useContext(AppSettingsContext);
   const iconsPath2 = {
-    arrow: "/img/general/icons/arrow.svg",
-    arrowWhite: "/img/general/icons/arrow-white.svg"
+    arrow: getAssetPath("img/general/icons/arrow.svg"),
+    arrowWhite: getAssetPath("img/general/icons/arrow-white.svg")
   };
   const swiper2 = useSwiper();
   const prevSlide = () => {
@@ -29392,20 +29410,20 @@ const styles$j = {
 };
 const slides = [
   {
-    imgMobile: "/img/banner_mobile.png",
-    imgDesktop: "/img/banner.png"
+    imgMobile: getAssetPath("img/banner_mobile.png"),
+    imgDesktop: getAssetPath("img/banner.png")
   },
   {
-    imgMobile: "/img/banner_mobile.png",
-    imgDesktop: "/img/banner.png"
+    imgMobile: getAssetPath("img/banner_mobile.png"),
+    imgDesktop: getAssetPath("img/banner.png")
   },
   {
-    imgMobile: "/img/banner_mobile.png",
-    imgDesktop: "/img/banner.png"
+    imgMobile: getAssetPath("img/banner_mobile.png"),
+    imgDesktop: getAssetPath("img/banner.png")
   },
   {
-    imgMobile: "/img/banner_mobile.png",
-    imgDesktop: "/img/banner.png"
+    imgMobile: getAssetPath("img/banner_mobile.png"),
+    imgDesktop: getAssetPath("img/banner.png")
   }
 ];
 const Slider = ({
@@ -29497,8 +29515,8 @@ const styles$f = {
   addedToFavorite
 };
 const iconsPath$1 = {
-  heart: "/img/general/icons/heart.svg",
-  redHeart: "/img/general/icons/red-heart.svg"
+  heart: getAssetPath("img/general/icons/heart.svg"),
+  redHeart: getAssetPath("img/general/icons/red-heart.svg")
 };
 const LikeButton = ({ id: id2 }) => {
   const { favoriteIds } = reactExports.useContext(StateContext);
@@ -29537,7 +29555,7 @@ const Card = ({
   image: image2,
   capacity: capacity2
 }) => {
-  const imagePath = image2.startsWith("/") ? image2 : `/${image2}`;
+  const imagePath = getAssetPath(image2);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { className: styles$i.item, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: `/product/${id2}`, children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { className: styles$i.image, alt: name2, src: imagePath }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$i.wrapper, children: [
@@ -29587,8 +29605,8 @@ const styles$d = {
   iconRight
 };
 const iconsPath = {
-  arrowWhite: "/img/general/icons/arrow-white.svg",
-  arrow: "/img/general/icons/arrow.svg"
+  arrowWhite: getAssetPath("img/general/icons/arrow-white.svg"),
+  arrow: getAssetPath("img/general/icons/arrow.svg")
 };
 const ProductHeading = ({
   swiperRef,
@@ -29677,6 +29695,10 @@ const ProductSlider = ({ title: title2, products: products2 }) => {
       allowRight: products2.length - numberOfDisplayedItems > swiper2.activeIndex
     });
   };
+  const handleSwip = (swiper2) => {
+    handleButtons(swiper2);
+    swiperRef.current = swiper2;
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: styles$e.products, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       ProductHeading,
@@ -29694,10 +29716,7 @@ const ProductSlider = ({ title: title2, products: products2 }) => {
         spaceBetween: 16,
         className: styles$e.slider,
         onSlideChange: handleButtons,
-        onSwiper: (swiper2) => {
-          handleButtons(swiper2);
-          swiperRef.current = swiper2;
-        },
+        onSwiper: handleSwip,
         children: products2.map((product) => /* @__PURE__ */ jsxRuntimeExports.jsx(SwiperSlide, { className: styles$e.slide, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Card, { ...product }) }, product.name))
       }
     )
@@ -29752,7 +29771,7 @@ const CategoryList = () => {
             children: /* @__PURE__ */ jsxRuntimeExports.jsx(
               "img",
               {
-                src: `/img/category-${category2}.webp`,
+                src: getAssetPath(`img/category-${category2}.webp`),
                 alt: category2,
                 className: styles$c.categoryImage
               }
@@ -30022,7 +30041,7 @@ const BreadCrumbs = () => {
     };
   });
   return /* @__PURE__ */ jsxRuntimeExports.jsx("nav", { className: styles$9.breadcrumbs, "aria-label": "Breadcrumb", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("ul", { className: styles$9.list, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("li", { className: styles$9.item, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/", className: styles$9.home, children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "/img/general/icons/home.svg", alt: "home" }) }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("li", { className: styles$9.item, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/", className: styles$9.home, children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: getAssetPath("img/general/icons/home.svg"), alt: "home" }) }) }),
     items.map(({ href, label: label2, isLast }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
       "li",
       {
@@ -30033,7 +30052,7 @@ const BreadCrumbs = () => {
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             "img",
             {
-              src: "/img/general/icons/arrow.svg",
+              src: getAssetPath("img/general/icons/arrow.svg"),
               alt: "arrow",
               className: styles$9.arrow
             }
@@ -30080,7 +30099,17 @@ const Pagination = ({
   );
   const isFirst = currentPage === FIRST_PAGE;
   const isLast = currentPage === totalPages;
-  const activeArrowIcon = theme === "light" ? "/img/general/icons/arrow.svg" : "/img/general/icons/arrow-white.svg";
+  const activeArrowIcon = theme === "light" ? getAssetPath("img/general/icons/arrow.svg") : getAssetPath("img/general/icons/arrow-white.svg");
+  const handleBackTap = () => {
+    setPage(
+      Number(currentPage) - 1 < FIRST_PAGE ? FIRST_PAGE : currentPage - 1
+    );
+  };
+  const handleForwardTap = () => {
+    setPage(
+      Number(currentPage) + 1 > totalPages ? totalPages : currentPage + 1
+    );
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: styles$7.pagination, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.content, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("nav", { className: styles$7.nav, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       "button",
@@ -30088,23 +30117,19 @@ const Pagination = ({
         className: classNames(styles$7.button, "button", {
           disabled: isFirst
         }),
-        onClick: () => {
-          setPage(
-            Number(currentPage) - 1 < FIRST_PAGE ? FIRST_PAGE : currentPage - 1
-          );
-        },
+        onClick: handleBackTap,
         children: isFirst ? /* @__PURE__ */ jsxRuntimeExports.jsx(
           "img",
           {
-            src: "/img/general/icons/arrow.svg",
-            alt: "arrow left",
+            src: getAssetPath("img/general/icons/arrow.svg"),
+            alt: "arrow",
             className: classNames(styles$7.icon, styles$7.iconLeft)
           }
         ) : /* @__PURE__ */ jsxRuntimeExports.jsx(
           "img",
           {
             src: activeArrowIcon,
-            alt: "arrow left",
+            alt: "arrow",
             className: classNames(styles$7.icon, styles$7.iconLeft)
           }
         )
@@ -30130,26 +30155,15 @@ const Pagination = ({
         className: classNames(styles$7.button, "button", {
           disabled: isLast
         }),
-        onClick: () => {
-          setPage(
-            Number(currentPage) + 1 > totalPages ? totalPages : currentPage + 1
-          );
-        },
+        onClick: handleForwardTap,
         children: isLast ? /* @__PURE__ */ jsxRuntimeExports.jsx(
           "img",
           {
-            src: "/img/general/icons/arrow.svg",
-            alt: "arrow left",
+            src: getAssetPath("img/general/icons/arrow.svg"),
+            alt: "arrow",
             className: styles$7.icon
           }
-        ) : /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "img",
-          {
-            src: activeArrowIcon,
-            alt: "arrow left",
-            className: styles$7.icon
-          }
-        )
+        ) : /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: activeArrowIcon, alt: "arrow", className: styles$7.icon })
       }
     )
   ] }) }) });
@@ -30185,6 +30199,12 @@ const Filter = ({
   const handleSort = (e) => {
     setSort(e.target.value);
   };
+  const sortOptions = [
+    { value: "newest", label: labels.newest },
+    { value: "alphabet", label: labels.alphabetically },
+    { value: "cheapest", label: labels.cheapest }
+  ];
+  const itemsPerPageOptions = ["4", "8", "16", "all"];
   return /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "filter", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$6.content, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$6.head, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: classNames(styles$6.title, "text-h1"), children: title2 }),
@@ -30193,36 +30213,35 @@ const Filter = ({
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$6.wrapper, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: classNames(styles$6.label, "text-small"), children: [
         labels.sortBy,
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
           "select",
           {
             name: "sort",
             onChange: handleSort,
             className: styles$6.dropdown,
             value: sortValue,
-            children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "newest", className: styles$6.option, children: labels.newest }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "alphabet", className: styles$6.option, children: labels.alphabetically }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "cheapest", className: styles$6.option, children: labels.cheapest })
-            ]
+            children: sortOptions.map((option) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "option",
+              {
+                value: option.value,
+                className: styles$6.option,
+                children: option.label
+              },
+              option.value
+            ))
           }
         )
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: `${styles$6.label} text-small`, children: [
         labels.itemsOnPage,
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
           "select",
           {
             onChange: handleSelect,
             name: "items",
             className: classNames(styles$6.dropdown, styles$6.small),
             value: perPage > 16 || perPage < 4 ? "all" : perPage,
-            children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "4", className: styles$6.option, children: "4" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "8", className: styles$6.option, children: "8" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "16", className: styles$6.option, children: "16" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "all", className: styles$6.option, children: "all" })
-            ]
+            children: itemsPerPageOptions.map((option) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: option, className: styles$6.option, children: option }, option))
           }
         )
       ] })
@@ -30513,11 +30532,11 @@ const Modal = ({
   ) });
 };
 const iconPath = {
-  iconClose: "/img/general/icons/close.svg",
-  decrementIconDark: "/img/general/icons/minus-white.svg",
-  decrementIconLight: "/img/general/icons/minus.svg",
-  incrementIconDark: "/img/general/icons/close-white.svg",
-  incrementIconLight: "/img/general/icons/close.svg"
+  iconClose: getAssetPath("img/general/icons/close.svg"),
+  decrementIconDark: getAssetPath("img/general/icons/minus-white.svg"),
+  decrementIconLight: getAssetPath("img/general/icons/minus.svg"),
+  incrementIconDark: getAssetPath("img/general/icons/close-white.svg"),
+  incrementIconLight: getAssetPath("img/general/icons/close.svg")
 };
 const CartPage = () => {
   const { cartIds, allProducts } = reactExports.useContext(StateContext);
@@ -30566,7 +30585,7 @@ const CartPage = () => {
                 "img",
                 {
                   className: styles$3.cardPicture,
-                  src: image2.startsWith("/") ? image2 : `/${image2}`,
+                  src: getAssetPath(image2),
                   alt: "card image"
                 }
               )
@@ -30762,7 +30781,7 @@ const BackButton = () => {
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           "img",
           {
-            src: "/img/general/icons/arrow.svg",
+            src: getAssetPath("img/general/icons/arrow.svg"),
             alt: "arrow",
             className: styles.arrow
           }
@@ -30876,8 +30895,8 @@ const ProductDetails = () => {
   );
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("main", { className: styles$1.page, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("nav", { className: styles$1.breadcrumbs, "aria-label": "Breadcrumb", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/", className: styles$1.breadcrumbHome, children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "/img/general/icons/home.svg", alt: "Home" }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "/img/general/icons/arrow.svg", alt: "Arrow" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/", className: styles$1.breadcrumbHome, children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: getAssetPath("img/general/icons/home.svg"), alt: "Home" }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: getAssetPath("img/general/icons/arrow.svg"), alt: "Arrow" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Link,
         {
@@ -30886,7 +30905,7 @@ const ProductDetails = () => {
           children: currentProduct.category[0].toUpperCase() + currentProduct.category.slice(1)
         }
       ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "/img/general/icons/arrow.svg", alt: "Arrow" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: getAssetPath("img/general/icons/arrow.svg"), alt: "Arrow" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: classNames(styles$1.breadcrumbCurrent, "text-small"), children: name2 })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(BackButton, {}),
@@ -30904,7 +30923,7 @@ const ProductDetails = () => {
             children: /* @__PURE__ */ jsxRuntimeExports.jsx(
               "img",
               {
-                src: `/${image2}`,
+                src: getAssetPath(image2),
                 alt: `${name2} view ${index + 1}`,
                 className: styles$1.thumbImage
               }
@@ -30914,7 +30933,7 @@ const ProductDetails = () => {
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$1.mainImageWrap, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           "img",
           {
-            src: `/${images[selectedImage]}`,
+            src: getAssetPath(images[selectedImage]),
             alt: name2,
             className: styles$1.mainImage
           }
@@ -31093,9 +31112,8 @@ const routes = {
   favorites: "/favorites",
   cart: "/cart",
   product: "/product/:productId"
-  // menu: "/menu",
 };
-const Root = () => /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(AppSettingsProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(GlobalStateProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Routes, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Route, { path: routes.home, element: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}), children: [
+const Root = () => /* @__PURE__ */ jsxRuntimeExports.jsx(HashRouter, { basename: "/react_phone-catalog/", children: /* @__PURE__ */ jsxRuntimeExports.jsx(AppSettingsProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(GlobalStateProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Routes, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Route, { path: routes.home, element: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}), children: [
   /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { index: true, element: /* @__PURE__ */ jsxRuntimeExports.jsx(HomePage, {}) }),
   /* @__PURE__ */ jsxRuntimeExports.jsx(
     Route,
