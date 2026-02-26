@@ -31113,7 +31113,7 @@ const routes = {
   cart: "/cart",
   product: "/product/:productId"
 };
-const Root = () => /* @__PURE__ */ jsxRuntimeExports.jsx(HashRouter, { basename: "/react_phone-catalog/", children: /* @__PURE__ */ jsxRuntimeExports.jsx(AppSettingsProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(GlobalStateProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Routes, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Route, { path: routes.home, element: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}), children: [
+const Root = () => /* @__PURE__ */ jsxRuntimeExports.jsx(HashRouter, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(AppSettingsProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(GlobalStateProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Routes, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Route, { path: routes.home, element: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}), children: [
   /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { index: true, element: /* @__PURE__ */ jsxRuntimeExports.jsx(HomePage, {}) }),
   /* @__PURE__ */ jsxRuntimeExports.jsx(
     Route,
