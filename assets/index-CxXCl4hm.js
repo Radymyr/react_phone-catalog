@@ -23739,7 +23739,7 @@ const Footer = () => {
 const App = () => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "App", children: [
   /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "invisible", children: "Product Catalog" }),
   /* @__PURE__ */ jsxRuntimeExports.jsx(Header, {}),
-  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Outlet, {}) }),
+  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container appContainer", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Outlet, {}) }),
   /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
 ] });
 function isObject$2(obj) {
@@ -29724,13 +29724,13 @@ const ProductSlider = ({ title: title2, products: products2 }) => {
     )
   ] });
 };
-const category = "_category_vdunc_1";
-const heading = "_heading_vdunc_15";
-const categoryList = "_categoryList_vdunc_23";
-const categoryItem = "_categoryItem_vdunc_40";
-const categoryLink = "_categoryLink_vdunc_51";
-const categoryImage = "_categoryImage_vdunc_70";
-const categoryName = "_categoryName_vdunc_77";
+const category = "_category_r7w4w_1";
+const heading = "_heading_r7w4w_15";
+const categoryList = "_categoryList_r7w4w_23";
+const categoryItem = "_categoryItem_r7w4w_40";
+const categoryLink = "_categoryLink_r7w4w_51";
+const categoryImage = "_categoryImage_r7w4w_70";
+const categoryName = "_categoryName_r7w4w_77";
 const styles$c = {
   category,
   heading,
@@ -30301,7 +30301,7 @@ const useSort = () => {
   };
   return { setSort, sortValue };
 };
-const noProducts = "_noProducts_fi70b_1";
+const noProducts = "_noProducts_1jl1t_1";
 const styles$5 = {
   noProducts
 };
@@ -30436,24 +30436,24 @@ const FavouritesPage = () => {
     ) }) })
   ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx(NoProducts, {});
 };
-const cart = "_cart_1e499_1";
-const content = "_content_1e499_7";
-const tittle = "_tittle_1e499_14";
-const cards = "_cards_1e499_18";
-const card = "_card_1e499_18";
-const cardBottom = "_cardBottom_1e499_47";
-const cardTop = "_cardTop_1e499_48";
-const iconWrapper = "_iconWrapper_1e499_70";
-const closeButton = "_closeButton_1e499_75";
-const countButton = "_countButton_1e499_82";
-const cardButtons = "_cardButtons_1e499_93";
-const cardPicture = "_cardPicture_1e499_100";
-const productPrice = "_productPrice_1e499_104";
-const incrementIcon = "_incrementIcon_1e499_108";
-const count = "_count_1e499_82";
-const cartSubtext = "_cartSubtext_1e499_121";
-const checkout = "_checkout_1e499_140";
-const checkoutButton = "_checkoutButton_1e499_153";
+const cart = "_cart_1bgl5_1";
+const content = "_content_1bgl5_7";
+const tittle = "_tittle_1bgl5_14";
+const cards = "_cards_1bgl5_18";
+const card = "_card_1bgl5_18";
+const cardBottom = "_cardBottom_1bgl5_47";
+const cardTop = "_cardTop_1bgl5_48";
+const iconWrapper = "_iconWrapper_1bgl5_70";
+const closeButton = "_closeButton_1bgl5_75";
+const countButton = "_countButton_1bgl5_82";
+const cardButtons = "_cardButtons_1bgl5_93";
+const cardPicture = "_cardPicture_1bgl5_100";
+const productPrice = "_productPrice_1bgl5_104";
+const incrementIcon = "_incrementIcon_1bgl5_108";
+const count = "_count_1bgl5_82";
+const cartSubtext = "_cartSubtext_1bgl5_121";
+const checkout = "_checkout_1bgl5_140";
+const checkoutButton = "_checkoutButton_1bgl5_155";
 const styles$3 = {
   cart,
   content,
