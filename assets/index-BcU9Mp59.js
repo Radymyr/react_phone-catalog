@@ -23107,11 +23107,11 @@ const GlobalStateProvider = ({
   );
   return /* @__PURE__ */ jsxRuntimeExports.jsx(DispatchContext.Provider, { value: dispatch, children: /* @__PURE__ */ jsxRuntimeExports.jsx(StateContext.Provider, { value: state, children }) });
 };
-const icon$3 = "_icon_6khn1_1";
-const iconLight$1 = "_iconLight_6khn1_5";
-const linkButton = "_linkButton_6khn1_9";
-const button$5 = "_button_6khn1_27";
-const underline$1 = "_underline_6khn1_51";
+const icon$3 = "_icon_3ezpc_1";
+const iconLight$1 = "_iconLight_3ezpc_5";
+const linkButton = "_linkButton_3ezpc_9";
+const button$5 = "_button_3ezpc_27";
+const underline$1 = "_underline_3ezpc_53";
 const styles$r = {
   icon: icon$3,
   iconLight: iconLight$1,
@@ -23324,17 +23324,17 @@ const HeaderIconButton = ({
     }
   );
 };
-const header$1 = "_header_6sugt_1";
-const row$1 = "_row_6sugt_5";
-const headerContent = "_headerContent_6sugt_19";
-const buttons$2 = "_buttons_6sugt_26";
-const controls$1 = "_controls_6sugt_33";
-const desktopSearch = "_desktopSearch_6sugt_45";
-const mobileSearch = "_mobileSearch_6sugt_55";
-const controlButton$1 = "_controlButton_6sugt_64";
-const button$4 = "_button_6sugt_26";
-const icon$2 = "_icon_6sugt_101";
-const iconLight = "_iconLight_6sugt_105";
+const header$1 = "_header_1gyny_1";
+const row$1 = "_row_1gyny_9";
+const headerContent = "_headerContent_1gyny_23";
+const buttons$2 = "_buttons_1gyny_30";
+const controls$1 = "_controls_1gyny_37";
+const desktopSearch = "_desktopSearch_1gyny_49";
+const mobileSearch = "_mobileSearch_1gyny_59";
+const controlButton$1 = "_controlButton_1gyny_68";
+const button$4 = "_button_1gyny_30";
+const icon$2 = "_icon_1gyny_105";
+const iconLight = "_iconLight_1gyny_109";
 const styles$q = {
   header: header$1,
   row: row$1,
@@ -23367,14 +23367,14 @@ const Logo = () => {
     }
   ) });
 };
-const navigation$1 = "_navigation_1vo39_1";
-const navigationMobile = "_navigationMobile_1vo39_17";
-const list$3 = "_list_1vo39_23";
-const listMobile = "_listMobile_1vo39_42";
-const item$2 = "_item_1vo39_52";
-const itemMobile = "_itemMobile_1vo39_57";
-const link$2 = "_link_1vo39_62";
-const underline = "_underline_1vo39_69";
+const navigation$1 = "_navigation_c2hw5_1";
+const navigationMobile = "_navigationMobile_c2hw5_17";
+const list$3 = "_list_c2hw5_23";
+const listMobile = "_listMobile_c2hw5_42";
+const item$2 = "_item_c2hw5_52";
+const itemMobile = "_itemMobile_c2hw5_59";
+const link$2 = "_link_c2hw5_64";
+const underline = "_underline_c2hw5_71";
 const styles$o = {
   navigation: navigation$1,
   navigationMobile,
@@ -23683,6 +23683,8 @@ const styles$l = {
 };
 const Footer = () => {
   const { theme } = reactExports.useContext(AppSettingsContext);
+  const contactsUrl = "https://www.linkedin.com/in/radymyr-loboda-b4020417b/overlay/contact-info/";
+  const rightsUrl = "https://github.com/Radymyr/react_phone-catalog/blob/develop/LICENSE";
   return /* @__PURE__ */ jsxRuntimeExports.jsx("footer", { className: styles$l.footer, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$l.content, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("a", { className: styles$l.logo, href: "#", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       "img",
@@ -23699,7 +23701,7 @@ const Footer = () => {
       /* @__PURE__ */ jsxRuntimeExports.jsx("li", { className: "footer__item", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         "a",
         {
-          href: "#",
+          href: "https://github.com/Radymyr",
           className: classNames(styles$l.link, " text-uppercase"),
           children: "Github"
         }
@@ -23707,7 +23709,7 @@ const Footer = () => {
       /* @__PURE__ */ jsxRuntimeExports.jsx("li", { className: "footer__item", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         "a",
         {
-          href: "#",
+          href: contactsUrl,
           className: classNames(styles$l.link, " text-uppercase"),
           children: "Contacts"
         }
@@ -23715,7 +23717,7 @@ const Footer = () => {
       /* @__PURE__ */ jsxRuntimeExports.jsx("li", { className: "footer__item", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         "a",
         {
-          href: "#",
+          href: rightsUrl,
           className: classNames(styles$l.link, " text-uppercase"),
           children: "rights"
         }
@@ -29508,8 +29510,8 @@ const AddButton = ({ id: id2 }) => {
     }
   );
 };
-const like = "_like_sed77_1";
-const addedToFavorite = "_addedToFavorite_sed77_14";
+const like = "_like_14vhg_1";
+const addedToFavorite = "_addedToFavorite_14vhg_15";
 const styles$f = {
   like,
   addedToFavorite
@@ -29590,12 +29592,12 @@ const styles$e = {
   products: products$2,
   slider
 };
-const heading$1 = "_heading_6wn8p_1";
-const buttons = "_buttons_6wn8p_9";
-const button$1 = "_button_6wn8p_9";
-const buttonDisabled = "_buttonDisabled_6wn8p_32";
-const iconLeft$1 = "_iconLeft_6wn8p_41";
-const iconRight = "_iconRight_6wn8p_45";
+const heading$1 = "_heading_182jh_1";
+const buttons = "_buttons_182jh_9";
+const button$1 = "_button_182jh_9";
+const buttonDisabled = "_buttonDisabled_182jh_33";
+const iconLeft$1 = "_iconLeft_182jh_42";
+const iconRight = "_iconRight_182jh_46";
 const styles$d = {
   heading: heading$1,
   buttons,
@@ -29722,13 +29724,13 @@ const ProductSlider = ({ title: title2, products: products2 }) => {
     )
   ] });
 };
-const category = "_category_31yvv_1";
-const heading = "_heading_31yvv_15";
-const categoryList = "_categoryList_31yvv_23";
-const categoryItem = "_categoryItem_31yvv_40";
-const categoryLink = "_categoryLink_31yvv_51";
-const categoryImage = "_categoryImage_31yvv_70";
-const categoryName = "_categoryName_31yvv_77";
+const category = "_category_vdunc_1";
+const heading = "_heading_vdunc_15";
+const categoryList = "_categoryList_vdunc_23";
+const categoryItem = "_categoryItem_vdunc_40";
+const categoryLink = "_categoryLink_vdunc_51";
+const categoryImage = "_categoryImage_vdunc_70";
+const categoryName = "_categoryName_vdunc_77";
 const styles$c = {
   category,
   heading,
@@ -30668,51 +30670,51 @@ const CartPage = () => {
     )
   ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx(NoProducts, {});
 };
-const page = "_page_zmu2t_1";
-const message = "_message_zmu2t_6";
-const breadcrumbs = "_breadcrumbs_zmu2t_10";
-const breadcrumbHome = "_breadcrumbHome_zmu2t_18";
-const breadcrumbLink = "_breadcrumbLink_zmu2t_23";
-const breadcrumbCurrent = "_breadcrumbCurrent_zmu2t_28";
-const title = "_title_zmu2t_34";
-const hero = "_hero_zmu2t_44";
-const leftHalf = "_leftHalf_zmu2t_64";
-const thumbs = "_thumbs_zmu2t_82";
-const thumb = "_thumb_zmu2t_82";
-const thumbActive = "_thumbActive_zmu2t_123";
-const thumbImage = "_thumbImage_zmu2t_127";
-const mainImageWrap = "_mainImageWrap_zmu2t_135";
-const mainImage = "_mainImage_zmu2t_135";
-const purchase = "_purchase_zmu2t_162";
-const colorsBlock = "_colorsBlock_zmu2t_168";
-const colorsHeader = "_colorsHeader_zmu2t_173";
-const productId = "_productId_zmu2t_183";
-const productIdTablet = "_productIdTablet_zmu2t_188";
-const idColumn = "_idColumn_zmu2t_197";
-const rightHalf = "_rightHalf_zmu2t_207";
-const colorsList = "_colorsList_zmu2t_219";
-const colorItem = "_colorItem_zmu2t_228";
-const colorItemActive = "_colorItemActive_zmu2t_236";
-const colorButton = "_colorButton_zmu2t_240";
-const colorDisabled = "_colorDisabled_zmu2t_247";
-const capacityBlock = "_capacityBlock_zmu2t_251";
-const capacityList = "_capacityList_zmu2t_256";
-const capacityButton = "_capacityButton_zmu2t_265";
-const capacityActive = "_capacityActive_zmu2t_276";
-const capacityDisabled = "_capacityDisabled_zmu2t_282";
-const priceWrap = "_priceWrap_zmu2t_286";
-const regularPrice = "_regularPrice_zmu2t_294";
-const actions = "_actions_zmu2t_299";
-const buttonRow = "_buttonRow_zmu2t_303";
-const shortSpecs = "_shortSpecs_zmu2t_309";
-const shortSpecsRow = "_shortSpecsRow_zmu2t_318";
-const info = "_info_zmu2t_329";
-const sectionTitle = "_sectionTitle_zmu2t_342";
-const aboutPart = "_aboutPart_zmu2t_348";
-const aboutText = "_aboutText_zmu2t_356";
-const specsList = "_specsList_zmu2t_361";
-const specsRow = "_specsRow_zmu2t_370";
-const suggestions = "_suggestions_zmu2t_382";
+const page = "_page_1q97n_1";
+const message = "_message_1q97n_6";
+const breadcrumbs = "_breadcrumbs_1q97n_10";
+const breadcrumbHome = "_breadcrumbHome_1q97n_18";
+const breadcrumbLink = "_breadcrumbLink_1q97n_23";
+const breadcrumbCurrent = "_breadcrumbCurrent_1q97n_28";
+const title = "_title_1q97n_34";
+const hero = "_hero_1q97n_44";
+const leftHalf = "_leftHalf_1q97n_64";
+const thumbs = "_thumbs_1q97n_84";
+const thumb = "_thumb_1q97n_84";
+const thumbActive = "_thumbActive_1q97n_125";
+const thumbImage = "_thumbImage_1q97n_129";
+const mainImageWrap = "_mainImageWrap_1q97n_137";
+const mainImage = "_mainImage_1q97n_137";
+const purchase = "_purchase_1q97n_162";
+const colorsBlock = "_colorsBlock_1q97n_168";
+const colorsHeader = "_colorsHeader_1q97n_173";
+const productId = "_productId_1q97n_183";
+const productIdTablet = "_productIdTablet_1q97n_188";
+const idColumn = "_idColumn_1q97n_197";
+const rightHalf = "_rightHalf_1q97n_207";
+const colorsList = "_colorsList_1q97n_219";
+const colorItem = "_colorItem_1q97n_228";
+const colorItemActive = "_colorItemActive_1q97n_236";
+const colorButton = "_colorButton_1q97n_240";
+const colorDisabled = "_colorDisabled_1q97n_247";
+const capacityBlock = "_capacityBlock_1q97n_251";
+const capacityList = "_capacityList_1q97n_256";
+const capacityButton = "_capacityButton_1q97n_265";
+const capacityActive = "_capacityActive_1q97n_276";
+const capacityDisabled = "_capacityDisabled_1q97n_282";
+const priceWrap = "_priceWrap_1q97n_286";
+const regularPrice = "_regularPrice_1q97n_294";
+const actions = "_actions_1q97n_299";
+const buttonRow = "_buttonRow_1q97n_303";
+const shortSpecs = "_shortSpecs_1q97n_309";
+const shortSpecsRow = "_shortSpecsRow_1q97n_318";
+const info = "_info_1q97n_329";
+const sectionTitle = "_sectionTitle_1q97n_342";
+const aboutPart = "_aboutPart_1q97n_348";
+const aboutText = "_aboutText_1q97n_356";
+const specsList = "_specsList_1q97n_361";
+const specsRow = "_specsRow_1q97n_370";
+const suggestions = "_suggestions_1q97n_382";
 const styles$1 = {
   page,
   message,
